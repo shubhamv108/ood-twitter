@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         UserService userService = new UserService();
@@ -8,12 +6,12 @@ public class Main {
 
         userB.followUser(userA);
         Tweet tweet = userA.tweet("TweetByA");
-        List<Tweet> tweets = userB.getTimeLine();
-        System.out.println(tweets);
+        Timeline timeline = userB.getTimeLine();
+        System.out.println(timeline);
         userB.like(tweet);
         userB.comment("CommentByB", tweet);
-        tweets = userB.getTimeLine();
-        System.out.println(tweets);
+        timeline = userB.getTimeLine();
+        System.out.println(timeline);
 
         System.out.println(userA.getHomeTimeline());
     }

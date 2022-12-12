@@ -2,13 +2,13 @@ import java.util.Date;
 
 public class Comment {
 
-    final ITwitterUser commentedBy;
+    private final ITwitterUser commentedBy;
 
-    final String content;
+    private final String content;
 
-    private Tweet tweet;
+    private final Tweet tweet;
 
-    final Date createdAt;
+    private final Date createdAt;
 
     public Comment(ITwitterUser commentedBy, String content, Tweet tweet) {
         this.content = content;

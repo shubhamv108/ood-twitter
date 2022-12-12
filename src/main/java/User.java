@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,13 +9,11 @@ public class User implements ITwitterUser, Follower, Followed {
 
     private final Set<Follower> followers = new HashSet<>();
 
-    private final List<Tweet> tweets = new LinkedList<>();
+    private final LinkedList<Tweet> tweets = new LinkedList<>();
 
-    private final List<Tweet> timeline = new ArrayList<>();
+    private final Timeline timeline = new Timeline();
 
-    private static final long MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 100;
-
-    public User(Account account) {
+    public User(final Account account) {
         this.account = account;
     }
 
@@ -44,31 +40,19 @@ public class User implements ITwitterUser, Follower, Followed {
     @Override
     public Tweet tweet(String content) {
         Tweet tweet = new Tweet(content, this);
-        this.tweets.add(tweet);
+        this.tweets.offerFirst(tweet);
         this.notifyFollowers(tweet);
         return tweet;
     }
 
     @Override
-    public List<Tweet> getHomeTimeline() {
-        List<Tweet> result = new ArrayList<>();
-        for (Tweet tweet: this.tweets) {
-            if (System.currentTimeMillis() - MILLISECONDS_IN_A_DAY > tweet.getCreatedAt().getTime())
-                break;
-            result.add(tweet);
-        }
-        return result;
+    public Timeline getHomeTimeline() {
+       return new Timeline(new LinkedList<>(this.tweets));
     }
 
     @Override
-    public List<Tweet> getTimeLine() {
-        List<Tweet> result = new ArrayList<>();
-        for (Tweet tweet: this.timeline) {
-            if (System.currentTimeMillis() - MILLISECONDS_IN_A_DAY > tweet.getCreatedAt().getTime())
-                break;
-            result.add(tweet);
-        }
-        return result;
+    public Timeline getTimeLine() {
+        return this.timeline.copy();
     }
 
     @Override

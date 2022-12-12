@@ -1,13 +1,11 @@
-import java.util.List;
-
 public interface ITwitterUser {
 
 
     Tweet tweet(String content);
 
-    List<Tweet> getHomeTimeline();
+    Timeline getHomeTimeline();
 
-    List<Tweet> getTimeLine();
+    Timeline getTimeLine();
 
     void followUser(ITwitterUser user);
 

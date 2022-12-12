@@ -7,26 +7,18 @@ import java.util.Set;
 public class Tweet implements Commentable, Likable {
     private final String content;
 
-    private List<Comment> comments = new ArrayList<>();
+    private final List<Comment> comments = new ArrayList<>();
 
-    private Set<ITwitterUser> likedBy = new HashSet<>();
+    private final Set<ITwitterUser> likedBy = new HashSet<>();
 
-    private ITwitterUser tweetedBy;
+    private final ITwitterUser tweetedBy;
 
-    private Date createdAt;
+    private final Date createdAt;
 
-    public Tweet(String content, ITwitterUser tweeetedBy) {
+    public Tweet(String content, ITwitterUser tweetedBy) {
         this.content = content;
-        this.tweetedBy = tweeetedBy;
-        this.createdAt = new Date();
-    }
-
-    public void setTweetedBy(User tweetedBy) {
         this.tweetedBy = tweetedBy;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+        this.createdAt = new Date();
     }
 
     @Override
@@ -38,10 +30,6 @@ public class Tweet implements Commentable, Likable {
     @Override
     public void like(ITwitterUser likedBy) {
         this.likedBy.add(likedBy);
-    }
-
-    public List<Comment> getComments() {
-        return comments;
     }
 
     public Date getCreatedAt() {
@@ -57,5 +45,9 @@ public class Tweet implements Commentable, Likable {
                 ", tweetedBy=" + tweetedBy +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public boolean isBefore(Tweet t2) {
+        return this.createdAt.before(t2.createdAt);
     }
 }
