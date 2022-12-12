@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class UserService {
 
-    final Map<String, User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     public ITwitterUser register(String userName) {
         User user = this.users.get(userName);
